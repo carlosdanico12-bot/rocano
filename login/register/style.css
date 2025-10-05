@@ -1,0 +1,189 @@
+/* --- Variables de Colores y Estilos (Consistente con el Login) --- */
+:root {
+    --color-principal: #E63946; /* Rojo de campaña */
+    --color-secundario: #1D3557; /* Azul oscuro */
+    --color-fondo: #F1FAEE;      /* Blanco hueso */
+    --color-blanco: #FFFFFF;
+    --color-texto-placeholder: #6c757d;
+    --color-exito: #28a745;
+    --color-error: #d8000c;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-image: linear-gradient(45deg, var(--color-secundario) 0%, #457B9D 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: var(--color-blanco);
+    padding: 30px 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    animation: fadeIn 0.5s ease-out;
+    position: relative; /* Para el botón de volver */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.2rem;
+    color: var(--color-texto-placeholder);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+.back-link:hover {
+    color: var(--color-principal);
+}
+
+.form-header { margin-bottom: 25px; }
+.form-header .logo { max-width: 70px; margin-bottom: 15px; }
+.form-header h1 { color: var(--color-secundario); font-size: 1.8rem; margin-bottom: 5px; }
+.form-header p { color: var(--color-texto-placeholder); }
+
+/* --- Mensajes de Error y Éxito --- */
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+.message.error-message {
+    background-color: #ffdddd;
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+.message.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+.message p { margin: 0; }
+
+
+/* --- Formulario con Etiquetas Flotantes --- */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: white;
+}
+.input-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%2...%3C/svg%3E'); /* SVG de la flecha */
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: .65em auto;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--color-texto-placeholder);
+    background-color: var(--color-blanco);
+    padding: 0 5px;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group input:not(:placeholder-shown),
+.input-group select:valid {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+.input-group input:focus + label,
+.input-group select:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group select:valid + label {
+    top: 0;
+    font-size: 0.8rem;
+    color: var(--color-principal);
+}
+/* Placeholder hack for input:not(:placeholder-shown) */
+input:not(:placeholder-shown) {
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+input:placeholder-shown {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Para el select, la etiqueta sube cuando se elige una opción válida */
+.input-group.select-group label {
+    z-index: 1; /* Para que la etiqueta esté sobre el select */
+}
+
+
+.cta-button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+.cta-button:hover {
+    background-color: #d0313f;
+    transform: translateY(-2px);
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+    body { padding: 10px; }
+    .form-container {
+        padding: 20px;
+    }
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+}
+

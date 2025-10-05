@@ -1,0 +1,139 @@
+/* --- Variables de Colores y Estilos (Consistente con Login/Registro) --- */
+:root {
+    --color-principal: #E63946;
+    --color-secundario: #1D3557;
+    --color-fondo: #F1FAEE;
+    --color-blanco: #FFFFFF;
+    --color-error: #d8000c;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-image: linear-gradient(45deg, var(--color-secundario) 0%, #457B9D 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.twofactor-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+.twofactor-card {
+    background-color: var(--color-blanco);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.twofactor-header h2 {
+    color: var(--color-secundario);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.twofactor-header p {
+    color: #6c757d;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.error-banner {
+    background-color: #ffdddd;
+    color: var(--color-error);
+    border: 1px solid var(--color-error);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.code-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.code-input {
+    width: 50px;
+    height: 60px;
+    font-size: 2rem;
+    text-align: center;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -moz-appearance: textfield;
+}
+.code-input::-webkit-outer-spin-button,
+.code-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.code-input:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.2);
+}
+
+.separator {
+    font-size: 1.5rem;
+    color: #ced4da;
+    font-weight: 700;
+}
+
+.verify-button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.verify-button:hover {
+    background-color: #d0313f;
+    transform: translateY(-2px);
+}
+
+.twofactor-footer {
+    margin-top: 25px;
+}
+
+.twofactor-footer a {
+    color: var(--color-secundario);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.twofactor-footer a:hover {
+    color: var(--color-principal);
+    text-decoration: underline;
+}

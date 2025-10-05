@@ -1,0 +1,106 @@
+/* Estilos específicos para la página de Encuestas del Voluntario */
+
+.page-subtitle {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    color: var(--color-texto-secundario);
+}
+
+.surveys-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.survey-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    transition: all var(--transition-speed);
+}
+
+.survey-card.completed {
+    background-color: #f8f9fa;
+    opacity: 0.7;
+}
+
+.survey-icon {
+    font-size: 2.5rem;
+    color: var(--color-principal);
+    background-color: var(--color-fondo);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.survey-content {
+    flex-grow: 1;
+}
+
+.survey-title {
+    margin: 0 0 5px;
+    color: var(--color-secundario);
+}
+
+.survey-description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+}
+
+.survey-action {
+    text-align: center;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.survey-action .cta-button {
+    white-space: nowrap;
+    width: 150px;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+.survey-action .completed-btn {
+    background-color: #28a745;
+    cursor: not-allowed;
+}
+.survey-action .completed-btn:hover {
+    background-color: #28a745; /* Sin cambio de color */
+    transform: none;
+}
+
+.survey-due-date {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.card-empty {
+    text-align: center;
+    padding: 50px;
+}
+.card-empty i {
+    font-size: 3rem;
+    color: var(--color-texto-secundario);
+    margin-bottom: 15px;
+}
+.card-empty h3 {
+    color: var(--color-secundario);
+}
+
+@media (max-width: 768px) {
+    .survey-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .survey-action {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}

@@ -1,0 +1,91 @@
+/*
+ * Estilos específicos para la página de Gestión de Encuestas.
+ */
+
+.surveys-container .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.surveys-container h1 {
+    font-size: 1.8rem;
+    color: var(--color-secundario);
+}
+
+.surveys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.survey-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.survey-card-header {
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.survey-card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--color-secundario);
+}
+
+.status-badge {
+    float: right;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 50px;
+    color: var(--color-blanco);
+}
+.status-badge.status-active { background-color: #28a745; }
+.status-badge.status-scheduled { background-color: #17a2b8; }
+.status-badge.status-finished { background-color: #6c757d; }
+
+.survey-description {
+    color: var(--color-texto-secundario);
+    font-size: 0.9rem;
+    flex-grow: 1; /* Hace que la descripción ocupe el espacio disponible */
+    margin-bottom: 15px;
+}
+
+.survey-dates {
+    font-size: 0.8rem;
+    color: var(--color-texto-secundario);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+.survey-dates span i {
+    margin-right: 8px;
+    color: var(--color-principal);
+}
+
+.survey-actions {
+    margin-top: auto; /* Empuja las acciones al final de la tarjeta */
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.action-btn {
+    text-decoration: none;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all var(--transition-speed);
+}
+.action-btn.results-btn { background-color: var(--color-secundario); color: var(--color-blanco); }
+.action-btn.edit-btn { background-color: #ffc107; color: var(--color-texto-principal); }
+.action-btn.delete-btn { background-color: #dc3545; color: var(--color-blanco); }

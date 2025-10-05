@@ -1,0 +1,126 @@
+/* Estilos específicos para la página "Mis Tareas" del Voluntario */
+
+.page-subtitle {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    color: var(--color-texto-secundario);
+}
+
+.filter-card {
+    margin-bottom: 25px;
+    padding: 15px 20px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tasks-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.task-card {
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-speed);
+    border-left: 5px solid; /* El color se define abajo */
+}
+
+/* Colores dinámicos por estado */
+.task-card[data-status="Pendiente"] { border-color: #ffc107; }
+.task-card[data-status="En Progreso"] { border-color: #17a2b8; }
+.task-card[data-status="Completada"] { border-color: #28a745; }
+
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.task-title {
+    margin: 0;
+    color: var(--color-secundario);
+    font-size: 1.3rem;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.status-pendiente { background-color: #fff3cd; color: #856404; }
+.status-en-progreso { background-color: #d1ecf1; color: #0c5460; }
+.status-completada { background-color: #d4edda; color: #155724; }
+
+.task-body {
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+.task-description {
+    color: var(--color-texto-secundario);
+    line-height: 1.5;
+}
+
+.task-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.task-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+}
+.task-meta span i {
+    margin-right: 5px;
+    color: var(--color-principal);
+}
+
+.task-actions .cta-button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.complete-btn {
+    background-color: #28a745;
+}
+.complete-btn:hover {
+    background-color: #218838;
+}
+
+.evidence-btn {
+    background-color: var(--color-acento);
+    color: var(--color-secundario);
+}
+.evidence-btn:hover {
+    background-color: #8ac9ca;
+}
+
+
+.card-empty {
+    text-align: center;
+    padding: 50px;
+}
+.card-empty i {
+    font-size: 3rem;
+    color: var(--color-texto-secundario);
+    margin-bottom: 15px;
+}
+.card-empty h3 {
+    color: var(--color-secundario);
+}

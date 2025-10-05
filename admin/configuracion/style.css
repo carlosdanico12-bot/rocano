@@ -1,0 +1,87 @@
+/*
+ * Estilos específicos para la página de Configuración.
+ */
+
+.settings-container .card-header {
+    margin-bottom: 30px;
+}
+
+.settings-container h1 {
+    font-size: 1.8rem;
+    color: var(--color-secundario);
+    margin-bottom: 5px;
+}
+
+.settings-container p {
+    color: var(--color-texto-secundario);
+    font-size: 1rem;
+}
+
+.settings-form {
+    padding: 15px;
+}
+
+.form-section {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.form-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    color: var(--color-principal);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--color-principal);
+    display: inline-block;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-family);
+    transition: all var(--transition-speed);
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+.form-actions {
+    text-align: right;
+    margin-top: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

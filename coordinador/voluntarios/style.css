@@ -1,0 +1,112 @@
+/* Estilos específicos para la página de Gestión de Voluntarios del Coordinador */
+
+.filter-card {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.filter-group i {
+    color: var(--color-texto-secundario);
+}
+#search_volunteer {
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    padding: 8px 5px;
+    font-size: 1rem;
+    transition: border-color var(--transition-speed);
+}
+#search_volunteer:focus {
+    outline: none;
+    border-color: var(--color-principal);
+}
+
+.volunteers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.volunteer-card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+.volunteer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.volunteer-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.volunteer-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-principal);
+}
+.volunteer-name {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--color-secundario);
+}
+.volunteer-zone {
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    margin: 5px 0 0;
+}
+.volunteer-zone i {
+    margin-right: 5px;
+}
+
+.volunteer-stats {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.stat-item span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-texto-secundario);
+    margin-bottom: 5px;
+}
+.stat-item strong {
+    font-size: 1.5rem;
+    color: var(--color-principal);
+}
+
+.volunteer-actions {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.tertiary-button {
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    border: 2px solid var(--border-color);
+}
+.tertiary-button:hover {
+    background-color: var(--border-color);
+}
+
+.empty-state {
+    grid-column: 1 / -1; /* Ocupar todo el ancho */
+    text-align: center;
+    padding: 40px;
+    color: var(--color-texto-secundario);
+}

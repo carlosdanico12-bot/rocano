@@ -1,0 +1,124 @@
+/*
+ * Estilos específicos para la página de Eventos del Coordinador.
+ * Reutiliza y adapta los estilos del admin para mantener consistencia.
+*/
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.view-switcher {
+    display: flex;
+    background-color: var(--color-fondo);
+    border-radius: var(--border-radius);
+    padding: 5px;
+}
+
+.switcher-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--color-texto-secundario);
+    font-size: 1.2rem;
+    transition: all var(--transition-speed);
+}
+.switcher-btn:hover {
+    color: var(--color-principal);
+}
+.switcher-btn.active {
+    background-color: var(--color-blanco);
+    color: var(--color-principal);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.event-card {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.event-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+}
+.event-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.event-type {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+}
+.event-type-mitin { background-color: #f8d7da; color: #721c24; }
+.event-type-caminata { background-color: #cce5ff; color: #004085; }
+.event-type-reunion { background-color: #fff3cd; color: #856404; }
+.event-type-caravana { background-color: #d1ecf1; color: #0c5460; }
+.event-type-otro { background-color: #e2e3e5; color: #383d41; }
+
+.event-date {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-texto-secundario);
+}
+.event-title {
+    font-size: 1.3rem;
+    margin: 0 0 10px;
+    color: var(--color-secundario);
+    flex-grow: 1;
+}
+.event-location, .event-zone {
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+    margin-bottom: 5px;
+}
+.event-location i, .event-zone i {
+    color: var(--color-principal);
+    margin-right: 8px;
+}
+
+.card-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+}
+
+/* --- Estilos para FullCalendar --- */
+#calendar {
+    padding: 10px;
+}
+.fc-event {
+    cursor: pointer;
+}
+.fc-daygrid-event {
+    white-space: normal !important;
+}

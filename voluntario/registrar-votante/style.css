@@ -1,0 +1,57 @@
+/* Estilos específicos para la página de Registro de Votantes del Voluntario */
+
+.page-subtitle {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    color: var(--color-texto-secundario);
+}
+
+.form-card {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.form-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+.form-section:first-of-type {
+    margin-top: 0;
+}
+.section-icon {
+    font-size: 1.5rem;
+    color: var(--color-principal);
+}
+.form-section h3 {
+    margin: 0;
+    color: var(--color-secundario);
+}
+
+.form-group label .required {
+    color: var(--color-principal);
+    font-weight: bold;
+}
+
+input[disabled] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+.form-actions {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.form-actions .cta-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.form-actions .cta-button:disabled:hover {
+    background-color: #ccc;
+    transform: none;
+}

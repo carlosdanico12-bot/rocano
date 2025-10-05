@@ -1,0 +1,111 @@
+/* Estilos específicos para el Dashboard de Administración */
+
+.page-subtitle {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    color: var(--color-texto-secundario);
+}
+
+/* Grid para las tarjetas de estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-blanco);
+}
+.icon-votantes { background-color: #007bff; }
+.icon-voluntarios { background-color: #28a745; }
+.icon-tareas { background-color: #ffc107; }
+.icon-eventos { background-color: #17a2b8; }
+
+.stat-info .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-texto-principal);
+    display: block;
+}
+
+.stat-info .stat-label {
+    font-size: 0.9rem;
+    color: var(--color-texto-secundario);
+}
+
+/* Grid para los gráficos y la actividad */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
+    gap: 25px;
+}
+
+.chart-card {
+    grid-column: span 1;
+}
+
+.activity-card {
+    grid-column: 1 / -1; /* Ocupa todo el ancho en la siguiente fila */
+}
+
+.chart-card h3, .activity-card h3 {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Lista de actividad */
+.activity-list {
+    list-style: none;
+    padding: 0;
+}
+.activity-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+}
+.activity-list li:last-child {
+    border-bottom: none;
+}
+.activity-user {
+    font-weight: 600;
+    color: var(--color-principal);
+}
+.activity-time {
+    float: right;
+    font-size: 0.85rem;
+    color: var(--color-texto-secundario);
+}
+
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .charts-grid {
+        grid-template-columns: 1fr; /* Apila los gráficos en pantallas medianas */
+    }
+    .activity-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr; /* Dos tarjetas por fila en móvil */
+    }
+}
+

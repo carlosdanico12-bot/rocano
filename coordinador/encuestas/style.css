@@ -1,0 +1,115 @@
+/* Estilos específicos para la página de Gestión de Encuestas */
+
+.page-subtitle {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    color: var(--color-texto-secundario);
+}
+
+.surveys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.survey-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.survey-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.survey-title {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--color-secundario);
+    margin-right: 15px;
+}
+
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.status-active { background-color: #d4edda; color: #155724; }
+.status-upcoming { background-color: #fff3cd; color: #856404; }
+.status-finished { background-color: #e2e3e5; color: #383d41; }
+
+.survey-description {
+    color: var(--color-texto-secundario);
+    font-size: 0.95rem;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.survey-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #6c757d;
+    padding: 15px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.survey-meta i {
+    margin-right: 8px;
+    color: var(--color-principal);
+}
+
+.survey-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 8px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-speed);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
+}
+
+.action-btn.view-results-btn {
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+}
+.action-btn.view-results-btn:hover {
+    background-color: #c5303c;
+}
+
+.action-btn.edit-btn, .action-btn.delete-btn {
+    background-color: var(--border-color);
+    color: var(--color-texto-secundario);
+    font-size: 1rem;
+    padding: 8px 12px;
+}
+
+.action-btn.edit-btn:hover { background-color: #ddd; color: var(--color-principal); }
+.action-btn.delete-btn:hover { background-color: #f8d7da; color: #721c24; }
+
+.card-empty {
+    text-align: center;
+    padding: 50px;
+    grid-column: 1 / -1;
+}
+
+.card-empty .cta-button {
+    margin-top: 20px;
+}

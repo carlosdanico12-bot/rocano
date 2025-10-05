@@ -1,0 +1,212 @@
+/* --- Variables de Colores y Estilos (Consistente con el Registro) --- */
+:root {
+    --color-principal: #E63946; /* Rojo de campaña */
+    --color-secundario: #1D3557; /* Azul oscuro */
+    --color-fondo: #F1FAEE;      /* Blanco hueso */
+    --color-blanco: #FFFFFF;
+    --color-texto-placeholder: #6c757d;
+    --color-exito: #28a745;
+    --color-error: #d8000c;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-image: linear-gradient(45deg, var(--color-secundario) 0%, #457B9D 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.form-container {
+    background-color: var(--color-blanco);
+    padding: 30px 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    animation: fadeIn 0.5s ease-out;
+    position: relative; /* Para el botón de volver */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 1.2rem;
+    color: var(--color-texto-placeholder);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+.back-link:hover {
+    color: var(--color-principal);
+}
+
+.form-header { margin-bottom: 25px; }
+.form-header .logo { max-width: 70px; margin-bottom: 15px; }
+.form-header h1 { color: var(--color-secundario); font-size: 1.8rem; margin-bottom: 5px; }
+.form-header p { color: var(--color-texto-placeholder); }
+
+/* --- Mensajes de Error y Éxito --- */
+.message {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+.message.error-message {
+    background-color: #ffdddd;
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+/* --- Formulario con Etiquetas Flotantes --- */
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: white;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: var(--color-texto-placeholder);
+    background-color: var(--color-blanco);
+    padding: 0 5px;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: 0;
+    font-size: 0.8rem;
+    color: var(--color-principal);
+}
+/* Placeholder hack for input:not(:placeholder-shown) */
+input:not(:placeholder-shown) {
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+input:placeholder-shown {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* --- Opciones Adicionales del Formulario --- */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-texto-placeholder);
+}
+
+.remember-me input {
+    margin-right: 8px;
+}
+
+.forgot-password {
+    color: var(--color-principal);
+    text-decoration: none;
+    font-weight: 500;
+}
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+.cta-button {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-principal);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-button:hover {
+    background-color: #d0313f;
+    transform: translateY(-2px);
+}
+
+/* --- Pie del Formulario --- */
+.form-footer {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+    color: var(--color-texto-placeholder);
+}
+.form-footer a {
+    color: var(--color-principal);
+    font-weight: 500;
+    text-decoration: none;
+}
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+    body { padding: 10px; }
+    .form-container {
+        padding: 20px;
+    }
+    .form-header h1 {
+        font-size: 1.5rem;
+    }
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+

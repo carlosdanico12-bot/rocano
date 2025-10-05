@@ -1,0 +1,72 @@
+/* Estilos específicos para la página de Reportes */
+
+.page-subtitle {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    color: var(--color-texto-secundario);
+}
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.report-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    transition: all var(--transition-speed);
+}
+
+.report-card:hover {
+    border-left: 5px solid var(--color-principal);
+    transform: translateX(5px);
+}
+
+.report-icon {
+    font-size: 2.5rem;
+    color: var(--color-principal);
+    background-color: var(--color-fondo);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.report-info h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: var(--color-secundario);
+}
+
+.report-info p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+    line-height: 1.5;
+}
+
+.report-actions {
+    margin-left: auto;
+}
+
+.report-actions .cta-button {
+    white-space: nowrap; /* Evita que el texto del botón se rompa */
+}
+
+
+@media (max-width: 768px) {
+    .report-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .report-actions {
+        margin-left: 0;
+        margin-top: 15px;
+    }
+}
+

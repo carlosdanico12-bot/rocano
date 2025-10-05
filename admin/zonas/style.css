@@ -1,0 +1,86 @@
+/* Estilos específicos y mejorados para la página de Gestión de Zonas */
+
+.zones-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 25px;
+    height: 75vh;
+}
+
+.zones-list-column .card, .map-column .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+.filters input, .filters select {
+    width: 100%;
+}
+
+.zones-list {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.zone-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+}
+.zone-item:hover, .zone-item.selected {
+    background-color: #e9ecef;
+}
+
+.zone-info { display: flex; align-items: center; gap: 15px; flex-grow: 1; overflow: hidden; }
+.zone-status-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.dot-a-favor { background-color: #28a745; }
+.dot-indeciso { background-color: #ffc107; }
+.dot-en-contra { background-color: #dc3545; }
+.dot-sin-votantes { background-color: #6c757d; }
+
+.zone-name { margin: 0; font-size: 1.1rem; color: var(--color-secundario); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zone-stats { font-size: 0.85rem; color: var(--color-texto-secundario); white-space: nowrap; }
+
+.map-column { position: relative; }
+#map { width: 100%; height: 100%; border-radius: var(--border-radius); }
+
+#map-controls {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 10px;
+    padding: 8px;
+}
+.map-control-btn {
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.map-control-btn.active {
+    background-color: var(--color-principal);
+    color: white;
+    border-color: var(--color-principal);
+}
+
+.loader { padding: 20px; text-align: center; color: var(--color-texto-secundario); }
+
+.info-window-content h4 { margin: 0 0 10px 0; color: var(--color-secundario); }
+.info-window-content p { margin: 0; font-size: 0.9rem; }
+

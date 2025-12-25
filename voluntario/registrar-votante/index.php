@@ -62,6 +62,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($errors)) {
     }
 }
 
+// Obtener votantes registrados por este voluntario
+if ($volunteer_zone) {
+    try {
+        $stmt_voters = $conn->prepare("SELECT nombre, dni, telefono, direccion, estado, created_at FROM votantes WHERE created_by = ? ORDER BY created_at DESC");
+        $stmt_voters->bind_param("i", $volunteer_id);
+        $stmt_voters->execute();
+        $result_voters = $stmt_voters->get_result();
+        $voters = [];
+        while ($row = $result_voters->fetch_assoc()) {
+            $voters[] = $row;
+        }
+    } catch (Exception $e) {
+        $errors[] = "Error al cargar la lista de votantes.";
+    }
+}
+
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
@@ -134,6 +150,40 @@ require_once __DIR__ . '/../../includes/header.php';
         </div>
 
     </form>
+</div>
+
+<div class="card">
+    <h3>Votantes Registrados por Ti</h3>
+    <div class="table-responsive">
+        <table class="voters-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                    <th>Fecha Registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($voters)): ?>
+                    <tr><td colspan="6">Aún no has registrado ningún votante.</td></tr>
+                <?php else: ?>
+                    <?php foreach ($voters as $voter): ?>
+                        <tr>
+                            <td><?php echo e($voter['nombre']); ?></td>
+                            <td><?php echo e($voter['dni']); ?></td>
+                            <td><?php echo e($voter['telefono']); ?></td>
+                            <td><?php echo e($voter['direccion']); ?></td>
+                            <td><span class="status-badge status-<?php echo strtolower(str_replace(' ', '-', e($voter['estado']))); ?>"><?php echo e($voter['estado']); ?></span></td>
+                            <td><?php echo e(date('d/m/Y H:i', strtotime($voter['created_at']))); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

@@ -8,17 +8,23 @@ if ($_SESSION['user_role'] !== 'admin') {
     exit;
 }
 
-// TU CLAVE DE API DE GOOGLE MAPS
-// INDICACIÓN: Asegúrate de que esta clave tenga la "Maps JavaScript API" y la facturación habilitadas en tu cuenta de Google Cloud.
+// -----------------------------------------------------------------------------
+// IMPORTANTE: REEMPLAZA CON TU PROPIA CLAVE DE API DE GOOGLE MAPS
+// -----------------------------------------------------------------------------
+// Para que el mapa funcione, debes obtener una clave de API de Google Cloud Platform.
+// Asegúrate de que la "Maps JavaScript API" y la "Places API" estén activadas
+// y que la facturación esté configurada en tu cuenta.
 $google_maps_api_key = 'AIzaSyCYdC0aQ1FWPFM35uDGOJOafl8Bfsshi1A'; 
 
 require_once __DIR__ . '/../../includes/header.php';
 ?>
 
 <div class="zones-container">
-    <div class="page-header">
-        <h1>Gestión de Zonas y Territorio</h1>
-        <button id="addZoneBtn" class="cta-button"><i class="fas fa-plus"></i> Crear Nueva Zona</button>
+    <div class="title-card card">
+        <div class="page-header">
+            <h1>Gestión de Zonas y Territorio</h1>
+            <button id="addZoneBtn" class="cta-button"><i class="fas fa-plus"></i> Crear Nueva Zona</button>
+        </div>
     </div>
 
     <div class="zones-layout">
@@ -35,6 +41,16 @@ require_once __DIR__ . '/../../includes/header.php';
                             <option value="En contra">En contra</option>
                             <option value="Sin Votantes">Sin Votantes</option>
                         </select>
+                        <select id="filterCoordinator">
+                            <option value="all">Todos los coordinadores</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                        <select id="filterDate">
+                            <option value="all">Todas las fechas</option>
+                            <option value="recent">Recientes (última semana)</option>
+                            <option value="month">Este mes</option>
+                            <option value="year">Este año</option>
+                        </select>
                     </div>
                 </div>
                 <div id="zones-list-container" class="zones-list">
@@ -42,16 +58,23 @@ require_once __DIR__ . '/../../includes/header.php';
                 </div>
             </div>
         </div>
+
         <div class="map-column">
             <div class="card map-card">
-                 <div id="map-controls">
-                    <button id="moveMapBtn" class="map-control-btn active" title="Mover mapa"><i class="fas fa-hand-paper"></i></button>
-                    <button id="drawPolygonBtn" class="map-control-btn" title="Dibujar zona"><i class="fas fa-draw-polygon"></i></button>
+                <div id="map-controls">
+                    <button id="moveMapBtn" class="map-control-btn active" title="Mover mapa">
+                        <i class="fas fa-hand-paper"></i>
+                    </button>
+                    <button id="drawPolygonBtn" class="map-control-btn" title="Dibujar zona">
+                        <i class="fas fa-draw-polygon"></i>
+                    </button>
                 </div>
                 <div id="map"></div>
             </div>
         </div>
     </div>
+
+
 </div>
 
 <!-- Modal para Crear/Editar Zona -->
@@ -92,6 +115,11 @@ require_once __DIR__ . '/../../includes/header.php';
     </div>
 </div>
 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_maps_api_key; ?>&libraries=drawing,geometry"></script>
+<!-- Scripts al final del body -->
+<script src="script.js"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=<?php echo $google_maps_api_key; ?>&libraries=drawing,geometry&callback=initMap"
+    async
+    defer>
+</script>
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>

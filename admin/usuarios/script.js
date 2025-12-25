@@ -1,4 +1,7 @@
+const BASE_URL = 'http://localhost/campana-politica-web/';
+
 document.addEventListener('DOMContentLoaded', function() {
+
     // Elementos del DOM
     const userModal = document.getElementById('userModal');
     const userForm = document.getElementById('userForm');
@@ -54,8 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- LÓGICA DE DATOS (FETCH) ---
     function fetchData() {
-        toggleLoader(true);
-        fetch('ajax_handler.php?action=get_users')
+            toggleLoader(true);
+        fetch(BASE_URL + 'admin/usuarios/ajax_handler.php?action=get_users')
 
 
             .then(response => response.json())
@@ -155,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(userForm);
         formData.append('action', 'save_user');
 
-        fetch('ajax_handler.php', { method: 'POST', body: formData })
+        fetch(BASE_URL + 'admin/usuarios/ajax_handler.php', { method: 'POST', body: formData })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -192,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('action', action);
         formData.append('user_id', userId);
 
-        fetch('index.php', { method: 'POST', body: formData })
+        fetch(BASE_URL + 'admin/usuarios/ajax_handler.php', { method: 'POST', body: formData })
         .then(res => res.json())
         .then(data => {
             if (data.success) {

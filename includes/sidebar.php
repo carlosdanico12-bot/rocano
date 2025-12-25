@@ -38,8 +38,14 @@ $base_role_path = BASE_URL . $user_role . '/';
             <!-- Solo Admin -->
             <?php if ($user_role === 'admin'): ?>
                 <li><a href="<?php echo BASE_URL; ?>admin/zonas/" <?php echo isActive('zonas', $current_dir); ?>><i class="fas fa-map-marked-alt fa-fw"></i><span>Zonas</span></a></li>
+                <li><a href="<?php echo BASE_URL; ?>admin/zonas-asignadas/" <?php echo isActive('zonas-asignadas', $current_dir); ?>><i class="fas fa-user-tag fa-fw"></i><span>Zonas Asignadas</span></a></li>
                 <li><a href="<?php echo BASE_URL; ?>admin/usuarios/" <?php echo isActive('usuarios', $current_dir); ?>><i class="fas fa-user-shield fa-fw"></i><span>Usuarios</span></a></li>
                 <li><a href="<?php echo BASE_URL; ?>admin/configuracion/" <?php echo isActive('configuracion', $current_dir); ?>><i class="fas fa-cogs fa-fw"></i><span>Configuración</span></a></li>
+            <?php endif; ?>
+
+            <!-- Solo Coordinador -->
+            <?php if ($user_role === 'coordinador'): ?>
+                <li><a href="<?php echo BASE_URL; ?>coordinador/zonas-asignadas/" <?php echo isActive('zonas-asignadas', $current_dir); ?>><i class="fas fa-user-tag fa-fw"></i><span>Mis Zonas</span></a></li>
             <?php endif; ?>
 
             <!-- Solo Voluntario -->

@@ -324,6 +324,8 @@ a { text-decoration: none; color: var(--color-principal); }
     flex-direction: column;
     flex-shrink: 0;
     transition: margin-left var(--transition-speed);
+    position: relative;
+    z-index: 1000;
 }
 .sidebar-header {
     padding: 20px;

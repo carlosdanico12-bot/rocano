@@ -1,4 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Emitir evento personalizado cuando se selecciona un votante
+    const voterItems = document.querySelectorAll('.voter-item');
+    voterItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const event = new CustomEvent('voterSelected', { detail: { voterId: item.dataset.voterId } });
+            document.dispatchEvent(event);
+        });
+    });
 
     const modal = document.getElementById('voterModal');
     const addVoterBtn = document.getElementById('addVoterBtn');
@@ -11,6 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalSubmitBtn = document.getElementById('modalSubmitBtn');
     const voterForm = document.getElementById('voterForm');
     const voterIdInput = document.getElementById('voter_id');
+    const nombreInput = document.getElementById('nombre');
+    const dniInput = document.getElementById('dni');
+    const telefonoInput = document.getElementById('telefono');
+    const direccionInput = document.getElementById('direccion');
+    const zonaSelect = document.getElementById('zona_id');
+    const estadoSelect = document.getElementById('estado');
+    const notasTextarea = document.getElementById('notas');
 
     function openModal() {
         modal.style.display = 'block';
@@ -69,5 +84,39 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchInput) searchInput.addEventListener('input', applyFilters);
     if (zoneFilter) zoneFilter.addEventListener('change', applyFilters);
     if (statusFilter) statusFilter.addEventListener('change', applyFilters);
+
+    // --- Lógica para Editar y Eliminar ---
+    const deleteForm = document.getElementById('deleteForm');
+    const deleteVoterIdInput = document.getElementById('delete_voter_id');
+
+    document.querySelector('.voters-table tbody').addEventListener('click', (event) => {
+        const editBtn = event.target.closest('.edit-btn');
+        const deleteBtn = event.target.closest('.delete-btn');
+        if (!editBtn && !deleteBtn) return;
+
+        const row = event.target.closest('tr');
+        if (!row) return;
+
+        if (editBtn) {
+            // Rellenar el formulario con los datos del votante
+            voterIdInput.value = row.dataset.voterId || '';
+            nombreInput.value = row.dataset.name || '';
+            dniInput.value = row.dataset.dni || '';
+            telefonoInput.value = row.dataset.telefono || '';
+            direccionInput.value = row.dataset.direccion || '';
+            zonaSelect.value = row.dataset.zonaId || '';
+            estadoSelect.value = row.dataset.status || '';
+            notasTextarea.value = row.dataset.notas || '';
+
+            modalTitle.textContent = 'Editar Votante';
+            modalSubmitBtn.textContent = 'Actualizar Votante';
+            openModal();
+        } else if (deleteBtn) {
+            if (confirm(`¿Seguro que quieres eliminar al votante "${row.dataset.name}"?`)) {
+                deleteVoterIdInput.value = row.dataset.voterId || '';
+                deleteForm.submit();
+            }
+        }
+    });
 });
 

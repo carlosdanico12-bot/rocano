@@ -1,0 +1,188 @@
+/* Estilos para la página de Mis Zonas Asignadas (Coordinador) */
+
+.assignments-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.title-card {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--color-secundario), #2a4a6b);
+    color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.title-card .page-header {
+    margin: 0;
+}
+
+.title-card h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.filters-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--color-fondo) 0%, #f1f3f4 100%);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    border-top: 3px solid var(--color-principal);
+}
+
+.filters-section h3 {
+    margin: 0 0 20px 0;
+    color: var(--color-secundario);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-texto-secundario);
+}
+
+.filter-group select,
+.filter-group button {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed);
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.1);
+}
+
+.filter-group button {
+    background-color: var(--color-principal);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color var(--transition-speed);
+}
+
+.filter-group button:hover {
+    background-color: var(--color-secundario);
+}
+
+.assignments-content {
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    border-top: 3px solid var(--color-principal);
+}
+
+#assignmentsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.assignment-zone {
+    padding: 25px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.assignment-zone:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+.assignment-zone h4 {
+    margin: 0 0 15px 0;
+    color: var(--color-principal);
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-acento);
+    padding-bottom: 8px;
+}
+
+.assignment-zone p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+    line-height: 1.5;
+}
+
+.assignment-zone strong {
+    color: var(--color-secundario);
+}
+
+.empty-list {
+    text-align: center;
+    color: var(--color-texto-secundario);
+    font-style: italic;
+    grid-column: 1 / -1;
+    padding: 40px;
+}
+
+.loader {
+    text-align: center;
+    color: var(--color-texto-secundario);
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .assignments-container {
+        padding: 15px;
+    }
+
+    .title-card {
+        padding: 15px;
+    }
+
+    .title-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .filters-section {
+        padding: 20px;
+    }
+
+    .filters-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .assignments-content {
+        padding: 20px;
+    }
+
+    #assignmentsContainer {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .assignment-zone {
+        padding: 20px;
+    }
+}

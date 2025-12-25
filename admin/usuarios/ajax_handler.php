@@ -22,12 +22,14 @@ try {
         case 'get_users':
             // Obtener roles y zonas
             $roles_result = $conn->query("SELECT id, name FROM roles");
+            if (!$roles_result) throw new Exception("Error en consulta de roles: " . $conn->error);
             $roles = [];
             while ($row = $roles_result->fetch_assoc()) {
                 $roles[$row['id']] = $row['name'];
             }
 
             $zonas_result = $conn->query("SELECT id, nombre FROM zonas");
+            if (!$zonas_result) throw new Exception("Error en consulta de zonas: " . $conn->error);
             $zonas = [];
             while ($row = $zonas_result->fetch_assoc()) {
                 $zonas[$row['id']] = $row['nombre'];
@@ -39,6 +41,7 @@ try {
                     LEFT JOIN roles r ON u.role_id = r.id
                     ORDER BY u.id DESC";
             $result = $conn->query($sql);
+            if (!$result) throw new Exception("Error en consulta de usuarios: " . $conn->error);
             $users = [];
             while ($user = $result->fetch_assoc()) {
                 $user['zona_name'] = $zonas[$user['zona_id']] ?? 'N/A';
@@ -111,6 +114,38 @@ try {
             } else {
                 throw new Exception("Error al eliminar el usuario.");
             }
+            break;
+
+        case 'get_users_by_role':
+            $role = $_GET['role'] ?? '';
+            if (empty($role)) {
+                throw new Exception("Rol no especificado.");
+            }
+
+            // Mapear nombres de rol a IDs
+            $role_map = [
+                'coordinador' => 2,
+                'voluntario' => 3
+            ];
+
+            if (!isset($role_map[$role])) {
+                throw new Exception("Rol no válido.");
+            }
+
+            $role_id = $role_map[$role];
+
+            // Obtener usuarios por rol, solo aprobados
+            $stmt = $conn->prepare("SELECT id, name FROM users WHERE role_id = ? AND approved = 1 ORDER BY name");
+            $stmt->bind_param("i", $role_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $users = [];
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+
+            $response = ['success' => true, 'users' => $users];
             break;
 
         default:

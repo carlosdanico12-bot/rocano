@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const votersPieChartCtx = document.getElementById('votersPieChart');
     if (votersPieChartCtx) {
         // Datos de ejemplo (en una aplicación real, vendrían de la BD con AJAX)
-        const votersData = {
+        let votersData = {
             labels: ['A favor', 'Indecisos', 'En contra'],
             datasets: [{
                 label: 'Distribución de Votantes',
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }]
         };
 
-        new Chart(votersPieChartCtx, {
+        const votersPieChart = new Chart(votersPieChartCtx, {
             type: 'pie',
             data: votersData,
             options: {
@@ -48,6 +48,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
+        });
+
+        // Escuchar evento personalizado para actualizar gráfico
+        document.addEventListener('voterSelected', (e) => {
+            // Aquí se puede actualizar votersData y el gráfico según e.detail.voterId
+            // Por ejemplo, actualizar datos con fetch y luego actualizar el gráfico:
+            // fetch(`/api/voters/${e.detail.voterId}/distribution`).then(...)
+            // Para demo, solo actualizamos con datos aleatorios
+            votersData.datasets[0].data = [
+                Math.floor(Math.random() * 200),
+                Math.floor(Math.random() * 200),
+                Math.floor(Math.random() * 200)
+            ];
+            votersPieChart.update();
         });
     }
 
@@ -88,4 +102,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
-

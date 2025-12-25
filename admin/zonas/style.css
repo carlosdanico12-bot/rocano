@@ -1,86 +1,343 @@
 /* Estilos específicos y mejorados para la página de Gestión de Zonas */
 
+.title-card {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--color-secundario), #2a4a6b);
+    color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.title-card .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+.title-card h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
 .zones-layout {
     display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 25px;
-    height: 75vh;
+    grid-template-columns: 450px 1fr;
+    gap: 30px;
+    height: 80vh;
+    margin-bottom: 40px;
 }
 
 .zones-list-column .card, .map-column .card {
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: none;
+    background-color: white;
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--color-secundario), #2a4a6b);
+    color: white;
+    padding: 25px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.card-header h3 {
+    margin: 0 0 20px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
 }
 
 .card-header .filters {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 0;
 }
 .filters input, .filters select {
     width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: border-color var(--transition-speed);
+}
+.filters input:focus, .filters select:focus {
+    outline: none;
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.1);
 }
 
 .zones-list {
     overflow-y: auto;
+    overflow-x: hidden;
     flex-grow: 1;
 }
 
 .zone-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 15px;
+    align-items: flex-start;
+    padding: 20px 20px 20px 30px;
     border-bottom: 1px solid var(--border-color);
+    border-left: 4px solid transparent;
     cursor: pointer;
-    transition: background-color var(--transition-speed);
+    transition: all var(--transition-speed);
+    background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(248,249,250,0.5) 100%);
+    position: relative;
+    flex-wrap: wrap;
+}
+.zone-item::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-principal);
+    border-radius: 50%;
+    opacity: 0.7;
 }
 .zone-item:hover, .zone-item.selected {
-    background-color: #e9ecef;
+    background: linear-gradient(90deg, var(--color-acento) 0%, #e9ecef 100%);
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.zone-info { display: flex; align-items: center; gap: 15px; flex-grow: 1; overflow: hidden; }
-.zone-status-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.zone-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
+    overflow: hidden;
+    flex-basis: auto;
+    min-width: 200px;
+}
+.zone-status-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 4px rgba(0,0,0,0.2); }
 .dot-a-favor { background-color: #28a745; }
 .dot-indeciso { background-color: #ffc107; }
 .dot-en-contra { background-color: #dc3545; }
 .dot-sin-votantes { background-color: #6c757d; }
 
-.zone-name { margin: 0; font-size: 1.1rem; color: var(--color-secundario); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.zone-stats { font-size: 0.85rem; color: var(--color-texto-secundario); white-space: nowrap; }
+.zone-name { margin: 0; font-size: 1.2rem; color: var(--color-secundario); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zone-stats { font-size: 0.9rem; color: var(--color-texto-secundario); white-space: nowrap; font-weight: 500; }
+.zone-assigned { font-size: 0.85rem; color: var(--color-texto-secundario); margin: 2px 0; font-weight: 400; }
 
-.map-column { position: relative; }
-#map { width: 100%; height: 100%; border-radius: var(--border-radius); }
+.map-column { position: relative; z-index: 1; }
+#map { width: 100%; height: 100%; border-radius: var(--border-radius); background-color: #e9e9e9;}
 
 #map-controls {
     position: absolute;
-    top: 15px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
     display: flex;
-    gap: 10px;
-    padding: 8px;
+    gap: 15px;
+    background: rgba(255,255,255,0.95);
+    padding: 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
 }
 .map-control-btn {
     background-color: white;
-    border: 1px solid #ccc;
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+    border: 2px solid #e0e0e0;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-speed);
+    color: var(--color-secundario);
+}
+.map-control-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .map-control-btn.active {
     background-color: var(--color-principal);
     color: white;
     border-color: var(--color-principal);
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
 }
 
 .loader { padding: 20px; text-align: center; color: var(--color-texto-secundario); }
 
 .info-window-content h4 { margin: 0 0 10px 0; color: var(--color-secundario); }
 .info-window-content p { margin: 0; font-size: 0.9rem; }
+
+/* Separador entre secciones */
+.section-separator {
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--color-principal) 50%, transparent 100%);
+    margin: 50px 0;
+    border: none;
+}
+
+/* Estilos para la barra de asignaciones */
+.assignments-bar {
+    margin-top: 60px;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--color-fondo) 0%, #f1f3f4 100%);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    border-top: 3px solid var(--color-principal);
+}
+
+.assignments-bar h3 {
+    margin-top: 0;
+    color: var(--color-secundario);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#assignmentsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.assignment-zone {
+    padding: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.assignment-zone:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+}
+
+.assignment-zone h4 {
+    margin: 0 0 15px 0;
+    color: var(--color-principal);
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-bottom: 2px solid var(--color-acento);
+    padding-bottom: 8px;
+}
+
+.assignment-zone p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+    line-height: 1.5;
+}
+
+.empty-list {
+    text-align: center;
+    color: var(--color-texto-secundario);
+    font-style: italic;
+    grid-column: 1 / -1; /* Ocupa todo el ancho si está en un grid */
+}
+
+.modal-content.small {
+    max-width: 450px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .zones-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 20px;
+    }
+    .zones-list-column, .map-column {
+        height: 400px;
+    }
+    .card-header .filters {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .zones-layout {
+        gap: 15px;
+    }
+    .card-header {
+        padding: 20px;
+    }
+    .card-header h3 {
+        font-size: 1.2rem;
+    }
+    .card-header .filters {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .zone-item {
+        padding: 15px;
+    }
+    .zone-name {
+        font-size: 1.1rem;
+    }
+    .assignments-bar {
+        padding: 20px;
+    }
+    .assignments-bar h3 {
+        font-size: 1.3rem;
+    }
+    #assignmentsContainer {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .title-card {
+        padding: 15px;
+    }
+.title-card h1 {
+    font-size: 1.5rem;
+    }
+}
+
+/* --- CORRECCIÓN DE Z-INDEX --- */
+
+/* 1. Asignamos un 'z-index' alto a la columna de la lista.
+      'position: relative' es necesario para que 'z-index' funcione. */
+.zones-list-column .card {
+  position: relative;
+  z-index: 20;
+}
+
+/* 2. Asignamos un 'z-index' más bajo a la columna del mapa. */
+.map-column {
+  /* 'position: relative' ya está en tu CSS, lo cual es perfecto. */
+  z-index: 10;
+}
+
+/* --- CORRECCIÓN DE TEXTO SUPERPUESTO --- */
+
+/* 1. Apunta a todos los 'p' y 'span' que son hijos directos de .zone-item
+   (pero no los que están dentro de .zone-info o los iconos). */
+.zone-item > .zone-stats,
+.zone-item > p,
+.zone-item > span {
+    flex-basis: 100%; /* ¡CLAVE! Forza a ocupar el 100% del ancho y saltar de línea. */
+    margin-top: 4px; /* Pequeño espacio vertical */
+    font-size: 0.9rem;
+    color: #333; /* Color de texto legible */
+
+    /* Los alineamos con el nombre de la zona (saltando el 'dot' y el 'gap') */
+    /* (14px del dot + 20px de 'gap' de .zone-info) */
+    margin-left: 34px;
+}
+
+/* 2. Un estilo específico para los 'stats' para que se vean bien */
+.zone-item > .zone-stats {
+    font-weight: 500;
+    color: var(--color-texto-secundario);
+}
 

@@ -1,7 +1,11 @@
+
 <?php
 // Se asume que config.php y auth_check.php ya fueron requeridos.
 $user_name = $_SESSION['user_name'] ?? 'Invitado';
 $user_role = $_SESSION['user_role'] ?? 'invitado';
+
+// Cabecera HTTP para CSP - comentada para evitar errores
+// header("Content-Security-Policy: script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://0150f469-935e-42b0-a3c4-5deeaffffd71/");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,8 +30,16 @@ $user_role = $_SESSION['user_role'] ?? 'invitado';
         echo '<link rel="stylesheet" href="' . $page_specific_css . '">';
     }
     ?>
+
+    <!-- Estilo para permitir que los modales se muestren fuera del content-area -->
+    <style>
+        .content-area {
+            overflow: visible;
+        }
+    </style>
+
 </head>
-<body>
+<body data-base-url="<?php echo BASE_URL; ?>">
     <div class="admin-wrapper">
         <?php require_once __DIR__ . '/sidebar.php'; // Incluir el menú lateral ?>
         

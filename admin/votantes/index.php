@@ -10,6 +10,68 @@ if ($_SESSION['user_role'] !== 'admin' && $_SESSION['user_role'] !== 'coordinado
 }
 
 $errors = [];
+$success = false;
+
+// Manejar el envío del formulario para añadir/editar votante
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $voter_id = $_POST['voter_id'] ?? '';
+    $nombre = trim($_POST['nombre'] ?? '');
+    $dni = trim($_POST['dni'] ?? '');
+    $telefono = trim($_POST['telefono'] ?? '');
+    $direccion = trim($_POST['direccion'] ?? '');
+    $zona_id = $_POST['zona_id'] ?? '';
+    $estado = $_POST['estado'] ?? '';
+    $notas = trim($_POST['notas'] ?? '');
+
+    if (empty($nombre) || empty($zona_id) || empty($estado)) {
+        $errors[] = "Por favor, complete todos los campos obligatorios.";
+    } else {
+        try {
+            if (!empty($voter_id)) {
+                // Editar votante existente
+                $stmt = $conn->prepare("UPDATE votantes SET nombre = ?, dni = ?, telefono = ?, direccion = ?, zona_id = ?, estado = ?, notas = ? WHERE id = ?");
+                $stmt->bind_param("sssssssi", $nombre, $dni, $telefono, $direccion, $zona_id, $estado, $notas, $voter_id);
+            } else {
+                // Añadir nuevo votante
+                $stmt = $conn->prepare("INSERT INTO votantes (nombre, dni, telefono, direccion, zona_id, estado, notas, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+                $stmt->bind_param("sssssss", $nombre, $dni, $telefono, $direccion, $zona_id, $estado, $notas);
+            }
+
+            if ($stmt->execute()) {
+                $success = true;
+                // Redirigir para evitar reenvío del formulario
+                header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
+                exit;
+            } else {
+                $errors[] = "Error al guardar el votante: " . $stmt->error;
+            }
+        } catch (Exception $e) {
+            $errors[] = "Error al procesar la solicitud: " . $e->getMessage();
+        }
+    }
+}
+
+// Verificar si hay mensaje de éxito en la URL
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = true;
+}
+
+// Manejar eliminación de votante
+if (isset($_POST['delete_voter_id'])) {
+    $delete_id = $_POST['delete_voter_id'];
+    try {
+        $stmt = $conn->prepare("DELETE FROM votantes WHERE id = ?");
+        $stmt->bind_param("i", $delete_id);
+        if ($stmt->execute()) {
+            header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
+            exit;
+        } else {
+            $errors[] = "Error al eliminar el votante: " . $stmt->error;
+        }
+    } catch (Exception $e) {
+        $errors[] = "Error al procesar la solicitud: " . $e->getMessage();
+    }
+}
 $voters = [];
 $zones = [];
 
@@ -21,7 +83,7 @@ try {
     }
 
     // Obtener todos los votantes con el nombre de su zona
-    $sql = "SELECT v.id, v.nombre, v.dni, v.telefono, v.estado, z.nombre as zona_nombre
+    $sql = "SELECT v.id, v.nombre, v.dni, v.telefono, v.direccion, v.zona_id, v.estado, v.notas, z.nombre as zona_nombre
             FROM votantes v
             LEFT JOIN zonas z ON v.zona_id = z.id
             ORDER BY v.created_at DESC";
@@ -42,6 +104,12 @@ require_once __DIR__ . '/../../includes/header.php';
 </div>
 
 <div class="card">
+    <?php if ($success): ?>
+        <div class="success-message">Votante guardado correctamente.</div>
+    <?php endif; ?>
+    <?php if (!empty($errors)): ?>
+        <div class="error-message"><?php echo implode('<br>', $errors); ?></div>
+    <?php endif; ?>
     <!-- Filtros -->
     <div class="filter-bar">
         <div class="filter-group">
@@ -86,7 +154,7 @@ require_once __DIR__ . '/../../includes/header.php';
                     </tr>
                 <?php else: ?>
                     <?php foreach ($voters as $voter): ?>
-                        <tr data-name="<?php echo e(strtolower($voter['nombre'])); ?>" data-dni="<?php echo e($voter['dni']); ?>" data-zone="<?php echo e(strtolower($voter['zona_nombre'])); ?>" data-status="<?php echo e($voter['estado']); ?>">
+                        <tr data-voter-id="<?php echo e($voter['id']); ?>" data-name="<?php echo e(strtolower($voter['nombre'])); ?>" data-dni="<?php echo e($voter['dni']); ?>" data-telefono="<?php echo e($voter['telefono']); ?>" data-zone="<?php echo e(strtolower($voter['zona_nombre'])); ?>" data-status="<?php echo e($voter['estado']); ?>" data-zona-id="<?php echo e($voter['zona_id']); ?>" data-direccion="<?php echo e($voter['direccion']); ?>" data-notas="<?php echo e($voter['notas']); ?>">
                             <td><?php echo e($voter['nombre']); ?></td>
                             <td><?php echo e($voter['dni']); ?></td>
                             <td><?php echo e($voter['telefono']); ?></td>
@@ -163,6 +231,10 @@ require_once __DIR__ . '/../../includes/header.php';
         </form>
     </div>
 </div>
+
+<form id="deleteForm" action="" method="POST" style="display:none;">
+    <input type="hidden" name="delete_voter_id" id="delete_voter_id">
+</form>
 
 <?php require_once __DIR__ . '/../../includes/footer.php'; ?>
 

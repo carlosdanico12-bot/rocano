@@ -55,3 +55,44 @@ input[disabled] {
     background-color: #ccc;
     transform: none;
 }
+
+/* Estilos para la tabla de votantes */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.voters-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.voters-table th,
+.voters-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.voters-table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: var(--color-texto-principal);
+}
+
+.voters-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-a-favor { background-color: #d4edda; color: #155724; }
+.status-indeciso { background-color: #fff3cd; color: #856404; }
+.status-en-contra { background-color: #f8d7da; color: #721c24; }

@@ -148,11 +148,26 @@ CREATE TABLE `job_batches` (
 
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL,
-  `message_content` text NOT NULL,
-  `target_segment` varchar(255) NOT NULL,
   `sent_by` bigint(20) UNSIGNED DEFAULT NULL,
-  `sent_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `status` varchar(50) DEFAULT 'enviado'
+  `message_content` text DEFAULT NULL,
+  `attachment_type` varchar(50) DEFAULT NULL,
+  `attachment_urls` json DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `message_recipients`
+--
+
+CREATE TABLE `message_recipients` (
+  `id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `recipient_user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `group_id` int(11) DEFAULT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `is_archived` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -360,6 +375,30 @@ CREATE TABLE `votantes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `groups`
+--
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `group_members`
+--
+
+CREATE TABLE `group_members` (
+  `group_id` int(11) NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `zonas`
 --
 
@@ -450,6 +489,15 @@ ALTER TABLE `messages`
   ADD KEY `sent_by` (`sent_by`);
 
 --
+-- Indices de la tabla `message_recipients`
+--
+ALTER TABLE `message_recipients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_message_recipient_message` (`message_id`),
+  ADD KEY `fk_message_recipient_user` (`recipient_user_id`),
+  ADD KEY `fk_message_recipient_group` (`group_id`);
+
+--
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
@@ -525,6 +573,20 @@ ALTER TABLE `votantes`
   ADD KEY `zona_id` (`zona_id`);
 
 --
+-- Indices de la tabla `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indices de la tabla `group_members`
+--
+ALTER TABLE `group_members`
+  ADD PRIMARY KEY (`group_id`,`user_id`),
+  ADD KEY `fk_group_member_user` (`user_id`);
+
+--
 -- Indices de la tabla `zonas`
 --
 ALTER TABLE `zonas`
@@ -562,6 +624,12 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT de la tabla `messages`
 --
 ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `message_recipients`
+--
+ALTER TABLE `message_recipients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -607,6 +675,12 @@ ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `votantes`
 --
 ALTER TABLE `votantes`
@@ -643,6 +717,14 @@ ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sent_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
+-- Filtros para la tabla `message_recipients`
+--
+ALTER TABLE `message_recipients`
+  ADD CONSTRAINT `fk_message_recipient_message` FOREIGN KEY (`message_id`) REFERENCES `messages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_message_recipient_user` FOREIGN KEY (`recipient_user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_message_recipient_group` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `tasks`
 --
 ALTER TABLE `tasks`
@@ -654,6 +736,19 @@ ALTER TABLE `tasks`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_user_zona` FOREIGN KEY (`zona_id`) REFERENCES `zonas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `groups`
+--
+ALTER TABLE `groups`
+  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Filtros para la tabla `group_members`
+--
+ALTER TABLE `group_members`
+  ADD CONSTRAINT `fk_group_member_group` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_group_member_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `votantes`

@@ -10,28 +10,15 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// --- 2. CONFIGURACIÓN DE RUTAS (Versión Definitiva y Automática) ---
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-$host = $_SERVER['HTTP_HOST'];
-$script_name = $_SERVER['SCRIPT_NAME'];
-$project_folder_name = 'campana-politica-web';
-$project_pos = strpos($script_name, '/' . $project_folder_name . '/');
-
-if ($project_pos !== false) {
-    $base_path = substr($script_name, 0, $project_pos + strlen('/' . $project_folder_name));
-} else {
-    $base_path = ''; // Fallback
-}
-
-// CORRECCIÓN: Se eliminó la barra inclinada extra al final para evitar URLs dobles (//).
-define('BASE_URL', $protocol . $host . $base_path . '/');
+// --- 2. CONFIGURACIÓN DE RUTA FIJA PARA EL HOSTING ---
+define('BASE_URL', 'http://localhost/campana-politica-web/');
 
 
 // --- 3. CONFIGURACIÓN DE LA BASE DE DATOS ---
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'campana_politica');
+define('DB_HOST', 'localhost'); // Usualmente se queda como 'localhost'.
+define('DB_USER', 'root'); // El usuario de BD que creaste.
+define('DB_PASS', ''); // La contraseña que asignaste.
+define('DB_NAME', 'campana_politica'); // El nombre de la BD que creaste.
 
 global $conn;
 
@@ -46,7 +33,10 @@ try {
     die("Error crítico: El sistema no está disponible en este momento.");
 }
 
-// --- 4. FUNCIONES GLOBALES ---
+// --- 4. CONFIGURACIÓN DE SEGURIDAD (CSP) ---
+header("Content-Security-Policy: script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://0150f469-935e-42b0-a3c4-5deeaffffd71/ 'sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ=' https://maps.googleapis.com https://cdn.jsdelivr.net; connect-src 'self' https://maps.googleapis.com");
+
+// --- 5. FUNCIONES GLOBALES ---
 function e($string) {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
